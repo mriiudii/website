@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchored scrolling so sticky header doesn't cover section tops */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-extrabold tracking-tight text-balance;
+  }
+}
+
+@layer components {
+  /* Horizontal page container */
+  .container-x {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  /* Standard vertical section rhythm */
+  .section-y {
+    @apply py-16 sm:py-24;
+  }
+
+  /* Numbered section eyebrow: "01 / Про нас" */
+  .eyebrow {
+    @apply mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-brand;
+  }
+
+  /* Primary call-to-action button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 text-base font-semibold text-white transition-colors duration-200 hover:bg-brand-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+  }
+
+  /* Secondary / outline button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/20 px-6 py-3 text-base font-semibold text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-white;
+  }
+
+  /* Text link with trailing arrow */
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-semibold text-ink underline-offset-4 transition-colors hover:text-brand;
+  }
+}
