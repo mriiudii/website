@@ -69,7 +69,7 @@ const CONTENT_TYPES = [
       sym("phone", "Phone"),
       sym("email", "Email"),
       sym("leaderEmail", "Leader email"),
-      text("legalAddress", "Legal address"),
+      sym("legalAddress", "Legal address"),
       sym("facebookUrl", "Facebook URL"),
       sym("instagramUrl", "Instagram URL"),
     ],
@@ -80,7 +80,7 @@ const CONTENT_TYPES = [
     displayField: "title",
     fields: [
       sym("title", "Title", { required: true }),
-      text("description", "Description"),
+      sym("description", "Description"),
       sym("icon", "Icon (emoji)"),
       int("order", "Order"),
     ],
@@ -92,7 +92,7 @@ const CONTENT_TYPES = [
     fields: [
       sym("period", "Period"),
       sym("title", "Title", { required: true }),
-      text("description", "Description"),
+      sym("description", "Description"),
       int("order", "Order"),
     ],
   },
@@ -105,8 +105,8 @@ const CONTENT_TYPES = [
       sym("year", "Year"),
       sym("partnerCredit", "Partner credit"),
       sym("metric", "Metric"),
-      text("story", "Story"),
-      text("result", "Result"),
+      sym("story", "Story"),
+      sym("result", "Result"),
       assetLink("image", "Image"),
       int("order", "Order"),
     ],
@@ -128,7 +128,7 @@ const CONTENT_TYPES = [
     fields: [
       sym("name", "Name", { required: true }),
       sym("role", "Role"),
-      text("focus", "Focus"),
+      sym("focus", "Focus"),
       assetLink("photo", "Photo"),
       int("order", "Order"),
     ],
@@ -305,23 +305,27 @@ const SEED_DATA = {
 // --- Runner --------------------------------------------------------------
 
 async function upsertContentType(env, def) {
-  let ct
+  // Contentful forbids changing an existing field's type, so recreate the type
+  // from scratch. Safe because the space has no entries at migration time.
   try {
-    ct = await env.getContentType(def.id)
-    ct.name = def.name
-    ct.displayField = def.displayField
-    ct.fields = def.fields
-    ct = await ct.update()
-    console.log(`  ↻ updated content type: ${def.id}`)
+    const existing = await env.getContentType(def.id)
+    try {
+      await existing.unpublish()
+    } catch (e) {
+      /* already unpublished — ignore */
+    }
+    await existing.delete()
+    console.log(`  – removed existing content type: ${def.id}`)
   } catch (e) {
-    ct = await env.createContentTypeWithId(def.id, {
-      name: def.name,
-      displayField: def.displayField,
-      fields: def.fields,
-    })
-    console.log(`  + created content type: ${def.id}`)
+    /* didn't exist yet — ignore */
   }
+  const ct = await env.createContentTypeWithId(def.id, {
+    name: def.name,
+    displayField: def.displayField,
+    fields: def.fields,
+  })
   await ct.publish()
+  console.log(`  + created content type: ${def.id}`)
 }
 
 async function seedType(env, typeId, rows, locale) {
