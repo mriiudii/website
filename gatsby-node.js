@@ -19,6 +19,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       leaderEmail: String
       legalAddress: String
       facebookUrl: String
+      facebookTitle: String
       instagramUrl: String
     }
 

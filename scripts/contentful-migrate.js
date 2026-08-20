@@ -80,6 +80,7 @@ const CONTENT_TYPES = [
       sym("leaderEmail", "Leader email"),
       sym("legalAddress", "Legal address"),
       sym("facebookUrl", "Facebook URL"),
+      sym("facebookTitle", "Facebook title"),
       sym("instagramUrl", "Instagram URL"),
     ],
   },
@@ -169,7 +170,8 @@ const SEED_DATA = {
       leaderEmail: "olehboyanovich@gmail.com",
       legalAddress:
         "32331, Хмельницька область, Кам'янець-Подільський район, с. Оринин, вул. Тараса Шевченка, 154А",
-      facebookUrl: "",
+      facebookUrl: "https://www.facebook.com/",
+      facebookTitle: "Мрії у дії",
       instagramUrl: "",
     },
   ],

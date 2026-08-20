@@ -32,6 +32,7 @@ const IndexPage = ({ data }) => {
         leaderEmail: data.contentfulSiteSettings.leaderEmail,
         legalAddress: data.contentfulSiteSettings.legalAddress,
         facebookUrl: data.contentfulSiteSettings.facebookUrl,
+        facebookTitle: data.contentfulSiteSettings.facebookTitle,
         instagramUrl: data.contentfulSiteSettings.instagramUrl,
       }
     : undefined
@@ -132,6 +133,7 @@ export const query = graphql`
       leaderEmail
       legalAddress
       facebookUrl
+      facebookTitle
       instagramUrl
     }
     allContentfulDirection {

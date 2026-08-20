@@ -4,7 +4,7 @@ import { VALUES } from "../../data/site"
 
 const Values = () => {
   return (
-    <section id="values" className="section-y bg-white">
+    <section id="values" className="section-y bg-[#ffc83d]">
       <div className="container-x">
         <Eyebrow number="05">Наші цінності</Eyebrow>
         <h2 className="max-w-2xl text-3xl sm:text-4xl">

@@ -50,12 +50,24 @@ const Contacts = ({ settings }) => {
 
           <div className="rounded-card bg-cream p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-muted">
-              Юридична адреса
+              Facebook
             </p>
-            <p className="mt-3 text-sm text-ink-soft">{s.legalAddress}</p>
-            <p className="mt-3 text-sm text-ink-muted">
-              Зустрічі з партнерами — за попередньою домовленістю.
-            </p>
+            <a
+              href={s.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 block text-lg font-bold text-ink hover:text-brand"
+            >
+              {s.facebookTitle}
+            </a>
+            <a
+              href={s.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-arrow mt-3 text-sm"
+            >
+              Перейти на сторінку
+            </a>
           </div>
         </div>
       </div>
