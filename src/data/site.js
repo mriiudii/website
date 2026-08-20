@@ -23,6 +23,13 @@ export const resolveSettings = (settings = {}) => {
 
 export const telHref = phone => `tel:${(phone || "").replace(/[^\d+]/g, "")}`
 
+// Mission & vision statements — the two anchor statements shown in "About".
+export const MISSION =
+  "Допомагати людям у малих і сільських громадах навчатися, розвивати ідеї, отримувати підтримку та перетворювати мрії на практичні дії, що зміцнюють їхнє життя і громаду."
+
+export const VISION =
+  "Малі й сільські громади України, у яких діти, молодь і дорослі мають доступ до можливостей, здатні впливати на рішення та разом створюють стійке майбутнє, залишаючись у громаді."
+
 // Five values from the brief (section 21).
 export const VALUES = [
   {

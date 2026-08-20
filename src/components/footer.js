@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import Logo from "./logo"
 import { resolveSettings, telHref } from "../data/site"
 
@@ -22,22 +23,22 @@ const Footer = ({ settings }) => {
           </h3>
           <ul className="mt-4 space-y-2.5 text-white/80">
             <li>
-              <a className="hover:text-brand-light" href="#about">
+              <a className="hover:text-brand-light" href="/#about">
                 Про нас
               </a>
             </li>
             <li>
-              <a className="hover:text-brand-light" href="#directions">
+              <a className="hover:text-brand-light" href="/#directions">
                 Напрями
               </a>
             </li>
             <li>
-              <a className="hover:text-brand-light" href="#experience">
-                Досвід
-              </a>
+              <Link className="hover:text-brand-light" to="/projects">
+                Проєкти
+              </Link>
             </li>
             <li>
-              <a className="hover:text-brand-light" href="#partnership">
+              <a className="hover:text-brand-light" href="/#partnership">
                 Партнерство
               </a>
             </li>

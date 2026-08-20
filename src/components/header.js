@@ -1,13 +1,28 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import Logo from "./logo"
 
+// Section anchors use a leading "/" so they resolve to the homepage section
+// even from sub-pages (e.g. /projects). `route: true` items are real pages.
 const NAV = [
-  { label: "Про нас", href: "#about" },
-  { label: "Напрями", href: "#directions" },
-  { label: "Досвід", href: "#experience" },
-  { label: "Команда", href: "#team" },
-  { label: "Контакти", href: "#contacts" },
+  { label: "Про нас", href: "/#about" },
+  { label: "Напрями", href: "/#directions" },
+  { label: "Проєкти", href: "/projects", route: true },
+  { label: "Команда", href: "/#team" },
+  { label: "Контакти", href: "/#contacts" },
 ]
+
+// Render a nav item as a router Link (real page) or a plain anchor (hash).
+const NavItem = ({ item, className, onClick }) =>
+  item.route ? (
+    <Link to={item.href} className={className} onClick={onClick}>
+      {item.label}
+    </Link>
+  ) : (
+    <a href={item.href} className={className} onClick={onClick}>
+      {item.label}
+    </a>
+  )
 
 const Header = () => {
   const [open, setOpen] = React.useState(false)
@@ -17,22 +32,20 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-ink/10 bg-cream/90 backdrop-blur">
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <a href="#top" className="shrink-0" onClick={close}>
+        <Link to="/" className="shrink-0" onClick={close}>
           <Logo />
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV.map(item => (
-            <a
+            <NavItem
               key={item.href}
-              href={item.href}
+              item={item}
               className="text-sm font-semibold text-ink-soft transition-colors hover:text-brand"
-            >
-              {item.label}
-            </a>
+            />
           ))}
-          <a href="#partnership" className="btn-primary px-5 py-2.5 text-sm">
+          <a href="/#partnership" className="btn-primary px-5 py-2.5 text-sm">
             Стати партнером
           </a>
         </nav>
@@ -70,17 +83,15 @@ const Header = () => {
         <nav className="border-t border-ink/10 bg-cream lg:hidden">
           <div className="container-x flex flex-col gap-1 py-4">
             {NAV.map(item => (
-              <a
+              <NavItem
                 key={item.href}
-                href={item.href}
+                item={item}
                 onClick={close}
                 className="rounded-lg px-2 py-3 text-base font-semibold text-ink-soft hover:bg-sand"
-              >
-                {item.label}
-              </a>
+              />
             ))}
             <a
-              href="#partnership"
+              href="/#partnership"
               onClick={close}
               className="btn-primary mt-2"
             >

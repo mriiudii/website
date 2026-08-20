@@ -3,6 +3,7 @@ module.exports = {
   content: [
     `./src/pages/**/*.{js,jsx,ts,tsx}`,
     `./src/components/**/*.{js,jsx,ts,tsx}`,
+    `./src/templates/**/*.{js,jsx,ts,tsx}`,
   ],
   theme: {
     extend: {
@@ -13,14 +14,14 @@ module.exports = {
           soft: "#3f3d38",
           muted: "#6b6862",
         },
-        // Warm paper-like backgrounds
-        cream: "#faf6ee",
-        sand: "#f2ece0",
-        // Primary brand accent — warm, energetic ("дія")
+        // Cool paper-like backgrounds — light blue tint to match the blue brand
+        cream: "#f2f6fd",
+        sand: "#e7edfa",
+        // Primary brand accent — energetic blue ("дія")
         brand: {
-          DEFAULT: "#e2601f",
-          dark: "#c14f16",
-          light: "#f4a261",
+          DEFAULT: "#1768e5",
+          dark: "#1153bd",
+          light: "#82aff5",
         },
         // Supporting tone — growth / development ("розвиток")
         moss: {

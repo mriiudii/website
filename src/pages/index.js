@@ -52,6 +52,7 @@ const IndexPage = ({ data }) => {
 
   const projects = mapNodes(data?.allContentfulProject?.edges, n => ({
     id: n.id,
+    slug: n.slug,
     title: n.title,
     year: n.year,
     metric: n.metric,
@@ -82,7 +83,7 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout settings={settings}>
-      <Hero />
+      <Hero image={data?.heroImage} />
       <About />
       <Directions directions={directions} />
       <Timeline events={timeline} />
@@ -115,6 +116,16 @@ export const Head = () => <Seo />
  */
 export const query = graphql`
   query HomePageQuery {
+    heroImage: contentfulAsset(title: { eq: "activity-children-team" }) {
+      description
+      gatsbyImageData(
+        layout: CONSTRAINED
+        width: 900
+        aspectRatio: 1.5
+        placeholder: BLURRED
+        formats: [AUTO, WEBP]
+      )
+    }
     contentfulSiteSettings {
       phone
       email
@@ -149,6 +160,7 @@ export const query = graphql`
       edges {
         node {
           id
+          slug
           title
           year
           metric

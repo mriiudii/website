@@ -56,6 +56,15 @@ const assetLink = (id, name) => ({
   localized: false,
   required: false,
 })
+// Array of linked assets — used for a project's photo gallery.
+const assetArray = (id, name) => ({
+  id,
+  name,
+  type: "Array",
+  items: { type: "Link", linkType: "Asset" },
+  localized: false,
+  required: false,
+})
 
 // --- Content type definitions -------------------------------------------
 
@@ -102,12 +111,14 @@ const CONTENT_TYPES = [
     displayField: "title",
     fields: [
       sym("title", "Title", { required: true }),
+      sym("slug", "Slug"),
       sym("year", "Year"),
       sym("partnerCredit", "Partner credit"),
       sym("metric", "Metric"),
       sym("story", "Story"),
       sym("result", "Result"),
       assetLink("image", "Image"),
+      assetArray("gallery", "Gallery"),
       int("order", "Order"),
     ],
   },
