@@ -84,6 +84,7 @@ const PartnershipForm = () => {
       method="POST"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
+      netlify
       onSubmit={handleSubmit}
       className="rounded-card border border-ink/10 bg-white p-6 sm:p-8"
     >
