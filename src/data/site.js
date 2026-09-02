@@ -8,8 +8,10 @@ export const DEFAULT_SETTINGS = {
   leaderEmail: "olehboyanovich@gmail.com",
   legalAddress:
     "32331, Хмельницька область, Кам'янець-Подільський район, с. Оринин, вул. Тараса Шевченка, 154А",
-  facebookUrl: "https://www.facebook.com/",
-  facebookTitle: "Мрії у дії",
+  // Social links have no in-code fallback: they render only when the matching
+  // Contentful `siteSettings` fields are filled, and hide otherwise.
+  facebookUrl: "",
+  facebookTitle: "",
   instagramUrl: "",
 }
 

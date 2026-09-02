@@ -1,31 +1,17 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import ProjectGallery from "../components/project-gallery"
 import { ArrowIcon } from "../components/ui"
 
 // Per-project article page. The project's text/structure comes from the in-code
-// PROJECTS entry passed via pageContext (gatsby-node.js).
-//
-// The photo gallery is CMS-driven (Contentful `project.gallery` assets, matched
-// by slug), but the query is gated OFF while the Contentful space has no assets:
-// gatsby-source-contentful won't materialise ContentfulAsset sub-fields until an
-// asset exists, so querying them now breaks the build. Until then the gallery
-// renders its empty state. TO RE-ENABLE once photos are uploaded:
-//   1. add `gallery: [ContentfulAsset]` back to ContentfulProject in gatsby-node.js
-//   2. restore the page query below and read gallery from `data`:
-//        export const query = graphql`
-//          query ProjectPage($slug: String!) {
-//            allContentfulProject(filter: { slug: { eq: $slug } }) {
-//              nodes { gallery { id title gatsbyImageData(layout: CONSTRAINED, width: 800, placeholder: BLURRED) } }
-//            }
-//          }`
-//   3. set: const gallery = data?.allContentfulProject?.nodes?.[0]?.gallery || []
-const ProjectTemplate = ({ pageContext }) => {
+// PROJECTS entry passed via pageContext (gatsby-node.js). The cover photo is
+// CMS-driven — the Contentful `project.image` asset matched by slug.
+const ProjectTemplate = ({ pageContext, data }) => {
   const project = pageContext.project
-  const gallery = [] // CMS gallery gated off until Contentful assets exist (see above)
+  const cover = getImage(data?.contentfulProject?.image)
 
   return (
     <Layout>
@@ -62,6 +48,17 @@ const ProjectTemplate = ({ pageContext }) => {
           </div>
         </header>
 
+        {/* Cover photo (Contentful project.image) */}
+        {cover && (
+          <div className="container-x pt-14 sm:pt-20">
+            <GatsbyImage
+              image={cover}
+              alt={project.title}
+              className="w-full overflow-hidden rounded-card"
+            />
+          </div>
+        )}
+
         <div className="container-x py-14 sm:py-20">
           {/* Article body */}
           <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-ink-soft">
@@ -69,12 +66,6 @@ const ProjectTemplate = ({ pageContext }) => {
               <p key={i}>{paragraph}</p>
             ))}
           </div>
-
-          {/* Gallery */}
-          <section className="mt-14">
-            <h2 className="mb-6 text-2xl sm:text-3xl">Галерея</h2>
-            <ProjectGallery images={gallery} caption={project.galleryCaption} />
-          </section>
         </div>
 
         {/* Closing CTA */}
@@ -95,6 +86,21 @@ const ProjectTemplate = ({ pageContext }) => {
 }
 
 export default ProjectTemplate
+
+export const query = graphql`
+  query ProjectPage($slug: String!) {
+    contentfulProject(slug: { eq: $slug }) {
+      image {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1000
+          placeholder: BLURRED
+          formats: [AUTO, WEBP]
+        )
+      }
+    }
+  }
+`
 
 export const Head = ({ pageContext }) => (
   <Seo

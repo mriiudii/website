@@ -26,17 +26,5 @@ module.exports = {
     "gatsby-transformer-sharp",
     "gatsby-plugin-postcss",
     "gatsby-plugin-sitemap",
-    {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        name: "Мрії у Дії — громадська організація",
-        short_name: "Мрії у Дії",
-        start_url: "/",
-        background_color: "#ffffff",
-        theme_color: "#ffffff",
-        display: "minimal-ui",
-        icon: "src/images/icon.png",
-      },
-    },
   ],
 }

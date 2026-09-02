@@ -60,6 +60,7 @@ const IndexPage = ({ data }) => {
     partnerCredit: n.partnerCredit,
     story: n.story,
     result: n.result,
+    image: n.image,
   }))
 
   const stats = mapNodes(data?.allContentfulStat?.edges, n => ({
@@ -111,9 +112,9 @@ export const Head = () => <Seo />
  * sections fall back to in-code defaults when their list is empty, so the page
  * renders with or without CMS data. Sorting by `order` happens in JS (mapNodes).
  *
- * Media fields (project.image / teamMember.photo / partner.logo) are intentionally
- * not queried yet: the space has no assets, and `gatsbyImageData` can't resolve
- * without them. Add them back once real images are uploaded to Contentful.
+ * Project cover photos (project.image) are queried below — every project entry
+ * has a published asset. Team/partner media (teamMember.photo / partner.logo)
+ * stay unqueried until those assets are uploaded to Contentful.
  */
 export const query = graphql`
   query HomePageQuery {
@@ -170,6 +171,15 @@ export const query = graphql`
           story
           result
           order
+          image {
+            gatsbyImageData(
+              layout: CONSTRAINED
+              width: 800
+              aspectRatio: 1.6
+              placeholder: BLURRED
+              formats: [AUTO, WEBP]
+            )
+          }
         }
       }
     }

@@ -21,6 +21,7 @@ const ProjectCard = ({ project }) => {
             image={image}
             alt={project.title}
             className="h-full w-full"
+            objectFit="cover"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-ink-muted/50">
