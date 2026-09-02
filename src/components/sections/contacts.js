@@ -4,6 +4,7 @@ import { resolveSettings, telHref } from "../../data/site"
 
 const Contacts = ({ settings }) => {
   const s = resolveSettings(settings)
+  const showFacebook = Boolean(s.facebookUrl && s.facebookTitle)
 
   return (
     <section id="contacts" className="section-y bg-white">
@@ -13,7 +14,11 @@ const Contacts = ({ settings }) => {
           Напишіть нам — ми відкриті до розмови
         </h2>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div
+          className={`mt-10 grid gap-6 ${
+            showFacebook ? "md:grid-cols-3" : "md:grid-cols-2"
+          }`}
+        >
           <div className="rounded-card bg-cream p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-muted">
               Керівник
@@ -48,27 +53,29 @@ const Contacts = ({ settings }) => {
             </a>
           </div>
 
-          <div className="rounded-card bg-cream p-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-muted">
-              Facebook
-            </p>
-            <a
-              href={s.facebookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 block text-lg font-bold text-ink hover:text-brand"
-            >
-              {s.facebookTitle}
-            </a>
-            <a
-              href={s.facebookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-arrow mt-3 text-sm"
-            >
-              Перейти на сторінку
-            </a>
-          </div>
+          {showFacebook && (
+            <div className="rounded-card bg-cream p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-muted">
+                Facebook
+              </p>
+              <a
+                href={s.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 block text-lg font-bold text-ink hover:text-brand"
+              >
+                {s.facebookTitle}
+              </a>
+              <a
+                href={s.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-arrow mt-3 text-sm"
+              >
+                Перейти на сторінку
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>
